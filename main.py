@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
@@ -15,7 +16,7 @@ class Base(DeclarativeBase):
     pass
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] =os.environ.get('DB_URL','sqlite:///users.db')
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 login_manager = LoginManager()
